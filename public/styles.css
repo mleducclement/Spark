@@ -4,6 +4,7 @@
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.premium {
+    width: 400px;
+    height: 400px;
+}

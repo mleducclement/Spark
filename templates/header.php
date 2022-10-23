@@ -16,10 +16,10 @@
                     <a href="../public/index.php" class="inline-block mr-4 hover:text-white hover:underline">
                         Home
                     </a>
-                    <a href="#" class="inline-block mr-4 hover:text-white hover:underline">
+                    <a href="../public/products.php" class="inline-block mr-4 hover:text-white hover:underline">
                         Products
                     </a>
-                    <a href="#" class="inline-block mr-4 hover:text-white hover:underline">
+                    <a href="../public/orders.php" class="inline-block mr-4 hover:text-white hover:underline">
                         Orders
                     </a>
                 </div>

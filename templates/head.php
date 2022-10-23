@@ -4,8 +4,8 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 
-$stylesheetLocation = "../public/style.css";
-$pageTitle = "";
+$stylesheetLocation = "../public/styles.css";
+$pageTitle = get_page_title();
 
 header("Content-Type: text/html; Charset: UTF-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");
@@ -21,18 +21,9 @@ header("Pragma: no-cache");
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href=<?php echo $stylesheetLocation ?>>
-    <link rel="stylesheet" href="">
 
-    <!-- Tailwindcss CDN and CONF object : Necessary in order to use tailwindcss without local compiling -->
+    <!-- Tailwindcss CDN : Necessary in order to use tailwindcss without local compiling -->
     <script src="https://cdn.tailwindcss.com" defer></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {}
-                }
-            }
-        }
-    </script>
+    <!------------------------------------------------------------------------------------->
     <title>Spark</title>
 </head>

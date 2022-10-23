@@ -4,7 +4,7 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 
-$javascriptLocation = "./js/scripts.js";
+$javascriptLocation = "../assets/js/scripts.js";
 ?>
 
 <footer class="max-w-6xl mx-auto">
