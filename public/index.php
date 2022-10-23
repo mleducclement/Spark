@@ -3,9 +3,12 @@
 #
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
+#Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
+#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 
 require "../src/utilities.php";
 require "../templates/head.php";
+$random_number = get_random_int();
 ?>
 
 <body class="bg-white">
@@ -29,11 +32,11 @@ require "../templates/head.php";
 
 <section class="bg-amber-100">
     <div class="max-w-6xl py-6 mx-auto">
-        <div class="max-w-sm mx-auto rounded shadow-lg bg-white p-3">
+        <div class="mx-auto rounded shadow-lg bg-white p-3 w-6/12">
             <h2 class="mb-6 text-center">Our Best Seller</h2>
             <figure class="mx-auto">
-                <a href="#"><img class="mx-auto max-w-xs mb-3" alt="image of a man
-                                 wearing a shirt" src=<?php get_random_image_url(); ?> ></a>
+                <a href="products.php"><img class="mx-auto mb-3 <?php echo $random_number == 3 ? "premium-img border-green" : "regular-img"; ?>" alt="image of a man
+                                 wearing a shirt" src="../assets/images/shirt<?php echo $random_number; ?>.jpg"></a>
                 <figcaption class="max-w-xs mx-auto text-center">A great example of one of our finest
                     product. Also, it is currently on SALE!
                 </figcaption>

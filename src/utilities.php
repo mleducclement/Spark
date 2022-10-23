@@ -3,6 +3,9 @@
 #
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
+#Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
+#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+
 
 // Generate the required info to insert into the footer of the app
 function show_footer(): void
@@ -15,13 +18,13 @@ function show_footer(): void
 }
 
 // Generate a random number and use it to display a random image
-function get_random_image_url(): void
+function get_random_int(): int
 {
     $random_number = rand(1, 5);
-    $images_location = "../assets/images/";
-    echo "{$images_location}shirt$random_number.jpg";
+    return $random_number;
 }
 
+// Get the current page we are to display correct title
 function get_page_title(): string
 {
     $page_title = "";
