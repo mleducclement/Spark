@@ -3,6 +3,7 @@
 #
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
+#Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use CONST
 
 // CONST
 const UTILITIES_LOCATION = "../src/utilities.php";
@@ -10,24 +11,20 @@ const MAIN_NAV_LOCATION = "../templates/main_nav.php";
 const FOOTER_LOCATION = "../templates/footer.php";
 const CSS_LOCATION = "../public/styles.css";
 
-require "../src/utilities.php";
-
-$pageTitle = get_page_title();
+require UTILITIES_LOCATION;
 
 // Force browser to use secure connection (HTTPS://)
 if (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
     header("Location: https://" . str_replace("8088", "", $_SERVER["HTTP_HOST"]) . $_SERVER["REQUEST_URI"]);
 }
 
-// HEADERS
+// Sets headers of the http request to prevent caching of the page
 header("Content-Type: text/html; Charset: UTF-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,5 +39,5 @@ header("Pragma: no-cache");
     <!-- Tailwindcss CDN : Necessary in order to use tailwindcss without local compiling -->
     <script src="https://cdn.tailwindcss.com" defer></script>
     <!------------------------------------------------------------------------------------->
-    <title>Spark</title>
+    <title><?php echo set_page_title(); ?></title>
 </head>

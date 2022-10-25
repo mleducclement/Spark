@@ -4,17 +4,13 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 
-require "../src/utilities.php";
+// Makes no sense to define a constant on every page for the head.php file and it needs to be defined
+// before requiring it in index
 require "../templates/head.php";
 ?>
 
-<body class="bg-white">
+    <body class="bg-white">
 
-<?php require "../templates/main_nav.php" ?>
+<?php require MAIN_NAV_LOCATION ?>
 
-<div class="bg-black">
-    <?php require("../templates/footer.php") ?>
-</div>
-
-</body>
-</html>
+<?php require FOOTER_LOCATION ?>
