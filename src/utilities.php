@@ -6,6 +6,7 @@
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
+#Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
 
 const LOGFILE_LOCATION = "../logs/log.txt";
 
@@ -20,9 +21,12 @@ function manage_error($error_number, $error_message, $error_filename, $error_lin
         echo "An error occured... We are aware of the problem, there is no further action to be taken by you";
     }
 
+    if (!file_exists(LOGFILE_LOCATION)) {
+        mkdir("../logs");
+    }
+
     $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
     fwrite($logfile, $error_message);
-
 }
 
 set_error_handler("manage_error");
@@ -38,8 +42,13 @@ function manage_exception($error_object): void
         echo "An exception occured... We are aware of the problem, there is no further action to be taken by you";
     }
 
+    if (!file_exists(LOGFILE_LOCATION)) {
+        mkdir("../logs");
+    }
+
     $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
     fwrite($logfile, $exception_message);
+
 }
 
 set_exception_handler("manage_exception");
