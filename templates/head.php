@@ -3,13 +3,16 @@
 #
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
-#Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use CONST
+#Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
+#Michael Leduc Clement 2210407  10-25-2022  Clean some hardcoded variables and add function to set the page title
 
 // CONST
 const UTILITIES_LOCATION = "../src/utilities.php";
 const MAIN_NAV_LOCATION = "../templates/main_nav.php";
 const FOOTER_LOCATION = "../templates/footer.php";
 const CSS_LOCATION = "../public/styles.css";
+
+const DEBUG_MODE = false;
 
 require UTILITIES_LOCATION;
 
@@ -34,10 +37,10 @@ header("Pragma: no-cache");
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!-- Uncomment href IF tailwindcss CDN is down -->
-    <link rel="stylesheet" href=<?php // echo CSS_LOCATION; ?>>
+    <link rel="stylesheet" href="<?php // echo CSS_LOCATION; ?>">
 
     <!-- Tailwindcss CDN : Necessary in order to use tailwindcss without local compiling -->
     <script src="https://cdn.tailwindcss.com" defer></script>
     <!------------------------------------------------------------------------------------->
-    <title><?php echo set_page_title(); ?></title>
+    <title><?= get_page_title(); ?></title>
 </head>

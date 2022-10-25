@@ -4,7 +4,8 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-23-2022   Add form to products page and add classes for regular/premium ads
-#Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use CONST
+#Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
+#Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index

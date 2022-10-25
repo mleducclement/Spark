@@ -1,3 +1,8 @@
+/*
+THIS FILE IMPORTS THE RESET, COMPONENTS AND UTILITIES STYLES FROM TAILWINDCSS AND DOES NOTHING MORE. IT IS REQUIRED TO
+COMPILE THE "REAL" CSS FILE IN "../public/"
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

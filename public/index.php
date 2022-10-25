@@ -10,6 +10,7 @@
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+#Michael Leduc Clement 2210407  10-25-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
 
 const IMAGES_LOCATION = "../assets/images/";
 

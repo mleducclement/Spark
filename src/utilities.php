@@ -5,7 +5,44 @@
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+#Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 
+const LOGFILE_LOCATION = "../logs/log.txt";
+
+function manage_error($error_number, $error_message, $error_filename, $error_line_number): void
+{
+    $error_message = date('y-m-d H:i:s') . " - An error occured in {$error_filename} at line {$error_line_number}. {$error_message} ({$error_number})\n";
+
+    if (DEBUG_MODE) {
+        echo $error_message;
+        exit();
+    } else {
+        echo "An error occured... We are aware of the problem, there is no further action to be taken by you";
+    }
+
+    $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
+    fwrite($logfile, $error_message);
+
+}
+
+set_error_handler("manage_error");
+
+function manage_exception($error_object): void
+{
+    $exception_message = date('y-m-d H:i:s') . " - An exception occured in {$error_object->getFile()} at line {$error_object->getLine()}. {$error_object->getMessage()} ({$error_object->getCode()})\n";
+
+    if (DEBUG_MODE) {
+        echo $exception_message;
+        exit();
+    } else {
+        echo "An exception occured... We are aware of the problem, there is no further action to be taken by you";
+    }
+
+    $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
+    fwrite($logfile, $exception_message);
+}
+
+set_exception_handler("manage_exception");
 
 // Generate the required info to insert into the footer of the app
 function show_footer(): void
@@ -24,9 +61,8 @@ function get_random_int(): int
     return $random_number;
 }
 
-function set_page_title(): string
+function get_page_title(): string
 {
-
     // Convert URI to array and set the filename to the last element of array
     $exploded_URI = explode('/', $_SERVER["REQUEST_URI"]);
     $URI_filename = $exploded_URI[count($exploded_URI) - 1];
