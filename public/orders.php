@@ -10,7 +10,7 @@ require "../templates/head.php";
 
 <body class="bg-white">
 
-<?php require "../templates/header.php" ?>
+<?php require "../templates/main_nav.php" ?>
 
 <div class="bg-black">
     <?php require("../templates/footer.php") ?>

@@ -5,7 +5,7 @@
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
 
-$javascriptLocation = "../assets/js/scripts.js";
+const JS_LOCATION = "../assets/js/scripts.js";
 ?>
 
 <footer class="max-w-6xl mx-auto">
@@ -14,4 +14,4 @@ $javascriptLocation = "../assets/js/scripts.js";
     </p>
 </footer>
 
-<script src=<?php echo $javascriptLocation ?>></script>
+<script src=<?php echo JS_LOCATION ?>></script>

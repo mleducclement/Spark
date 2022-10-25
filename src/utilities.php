@@ -30,3 +30,12 @@ function get_page_title(): string
     $page_title = "";
     return $page_title;
 }
+
+function sanitize_input($data): string
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401);
+    echo $data;
+    return $data;
+}
