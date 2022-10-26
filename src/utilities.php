@@ -4,7 +4,7 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
-#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+#Michael Leduc Clement 2210407  10-23-2022   Add data and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
 
@@ -48,7 +48,7 @@ function manage_exception($error_object): void
 
     $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
     fwrite($logfile, $exception_message);
-
+    fclose($logfile);
 }
 
 set_exception_handler("manage_exception");
@@ -84,7 +84,7 @@ function select_page_title($URI_filename): string
     // Variables to store file names for cases
     $home_file = "index.php";
     $products_file = "products.php";
-    $orders_file = "orders.php";
+    $orders_file = "data.php";
 
     // Variables to store corresponding page titles
     $home_title = "SPARK | HOME";

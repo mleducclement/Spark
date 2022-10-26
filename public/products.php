@@ -2,7 +2,7 @@
 #Revision History
 #
 #DEV                            DATE         MESSAGE
-#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+#Michael Leduc Clement 2210407  10-23-2022   Add data and product figure on index page
 #Michael Leduc Clement 2210407  10-23-2022   Add form to products page and add classes for regular/premium ads
 #Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
@@ -10,6 +10,8 @@
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
 require "../templates/head.php";
+
+$order_success = false;
 
 // Variables to be used for field values
 $product_code = "";
@@ -31,6 +33,7 @@ $error_quantity = "";
 
 // Code used to validate the content of the form
 if (isset($_POST["purchase"])) {
+    $form_valid = true;
 
     // Sets value variables to value from $_POST to prevent all input from vanishing when reloading form because of error
     // Also sanitizes the raw data from $_POST and round numerical values
@@ -39,42 +42,75 @@ if (isset($_POST["purchase"])) {
     $last_name = sanitize_input($_POST["last-name"]);
     $city = sanitize_input($_POST["city"]);
     $comments = sanitize_input($_POST["comments"]);
-    $price = round(sanitize_input($_POST["price"]), 2, PHP_ROUND_HALF_UP);
+    $price = round(sanitize_input($_POST["price"]), 2);
     $quantity = round(sanitize_input($_POST["quantity"]));
 
     // Checks if field is empty, doesn't contain the chars 'prd' or contains more than 25 chars (MB)
     if ($product_code == "" || !preg_match("/(prd)/i", mb_strtolower($product_code)) || mb_strlen($product_code) > 25) {
         $error_product_code = "The product code cannot be empty, must not contain more than 25 characters and must contain the code 'prd'";
-    }
+        $form_valid = false;
+    } // Checks if field is empty or contains more than 20 chars (MB)
 
-    // Checks if field is empty or contains more than 20 chars (MB)
     if ($first_name == "" || mb_strlen($first_name) > 20) {
         $error_first_name = "The first name cannot be empty and must not contain more than 20 characters";
+        $form_valid = false;
     }
 
     // Checks if field is empty or contains more than 20 chars (MB)
     if ($last_name == "" || mb_strlen($last_name) > 20) {
         $error_last_name = "The last name cannot be empty and must not contain more than 20 characters";
+        $form_valid = false;
     }
 
     // Checks if field is empty or contains more than 30 chars (MB)
     if ($city == "" || mb_strlen($city) > 30) {
         $error_city = "The city cannot be empty and must not contain more than 30 characters";
+        $form_valid = false;
     }
 
     // Checks if textarea contains more than 200 chars (MB)
     if (mb_strlen($comments) > 200) {
         $error_comments = "The comments cannot contain more than 200 characters";
+        $form_valid = false;
     }
 
     // Checks if field is empty, value isn't numeric, is smaller or equal to 0 or larger than 10000
     if ($price == "" || !is_numeric($price) || $price <= 0 || $price > 10000) {
         $error_price = "The price has to be a positive number and cannot be set higher than $10,000.00";
+        $form_valid = false;
     }
 
     // Checks if field is empty, isn't an integer, is 0 or larger than 99
     if ($quantity == "" || !preg_match("/^(\d?[1-9]|[1-9]0)$/", $quantity) || $quantity > 99) {
         $error_quantity = "The quantity has to be an integer, cannot be empty and must not exceed 99";
+        $form_valid = false;
+    }
+
+    if ($form_valid) {
+        $order_success = true;
+
+        $data = "";
+        $filename = "data.json";
+        $directory = "../data/";
+        $filepath = $directory . $filename;
+
+        $subtotal = round($price * $quantity, 2);
+        $taxes = round($subtotal * 0.124, 2);
+        $total = round($subtotal + $taxes, 2);
+
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        }
+
+        if (is_file($directory . $filename)) {
+            $data = file_get_contents($filepath);
+        }
+
+        $json_arr = json_decode($data, true);
+
+        $json_arr[] = array('code' => $product_code, 'first name' => $first_name, 'last name' => $last_name, 'city' => $city, 'comments' => $comments, 'price' => $price, 'quantity' => $quantity, 'subtotal' => $subtotal, 'taxes' => $taxes, 'total' => $total);
+
+        file_put_contents($filepath, json_encode($json_arr));
     }
 }
 
@@ -86,7 +122,10 @@ if (isset($_POST["purchase"])) {
 
     <section id="products" class="max-w-6xl mx-auto p-6">
         <h2 class="text-lg text-center font-bold p-3">Products</h2>
-        <form class="max-w-2xl mx-auto p-3" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <p class="max-w-sm mx-auto bg-green-300 text-center rounded-md <?= $order_success == true ? "block" : "hidden" ?>">
+            The order was placed successfully
+        </p>
+        <form class=" max-w-2xl mx-auto p-3" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="max-w-sm form-control my-3 mx-auto">
                 <label class="block" for="product-code">Product Code <span
                             class="text-red-600 font-bold">*</span></label>

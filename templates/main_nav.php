@@ -9,7 +9,7 @@
 // CONST
 const INDEX_LOCATION = "../public/index.php";
 const PRODUCTS_LOCATION = "../public/products.php";
-const ORDERS_LOCATION = "../public/orders.php";
+const ORDERS_LOCATION = "../public/data.php";
 
 ?>
 
