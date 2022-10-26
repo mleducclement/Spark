@@ -2,15 +2,17 @@
 #Revision History
 #
 #DEV                            DATE         MESSAGE
-#Michael Leduc Clement 2210407  10-23-2022   Add data and product figure on index page
+#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-23-2022   Add form to products page and add classes for regular/premium ads
 #Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
+#Michael Leduc Clement 2210407  10-25-2022   Add JSON encoding to a data file to keep track of orders.
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
 require "../templates/head.php";
 
+// Variable to display the success message on the page
 $order_success = false;
 
 // Variables to be used for field values
@@ -86,7 +88,9 @@ if (isset($_POST["purchase"])) {
         $form_valid = false;
     }
 
+    // If form is valid, order is sent and stored in JSON file
     if ($form_valid) {
+        // Sets the variable to true so that we can display the success message
         $order_success = true;
 
         $data = "";
@@ -98,18 +102,23 @@ if (isset($_POST["purchase"])) {
         $taxes = round($subtotal * 0.124, 2);
         $total = round($subtotal + $taxes, 2);
 
+        // Checks if data directory exists, if not, creates it
         if (!is_dir($directory)) {
             mkdir($directory);
         }
 
+        // Checked if data.json file exists if it does, get data already in it
         if (is_file($directory . $filename)) {
             $data = file_get_contents($filepath);
         }
 
+        // Convert JSON from the file to an array
         $json_arr = json_decode($data, true);
 
+        // Push the values from the form to the json_arr
         $json_arr[] = array('code' => $product_code, 'first name' => $first_name, 'last name' => $last_name, 'city' => $city, 'comments' => $comments, 'price' => $price, 'quantity' => $quantity, 'subtotal' => $subtotal, 'taxes' => $taxes, 'total' => $total);
 
+        // Write the entire json_arr to the .json file
         file_put_contents($filepath, json_encode($json_arr));
     }
 }

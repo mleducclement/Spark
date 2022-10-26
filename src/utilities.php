@@ -4,11 +4,12 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
-#Michael Leduc Clement 2210407  10-23-2022   Add data and product figure on index page
+#Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
 
 const LOGFILE_LOCATION = "../logs/log.txt";
+date_default_timezone_set("America/New_York");
 
 function manage_error($error_number, $error_message, $error_filename, $error_line_number): void
 {
