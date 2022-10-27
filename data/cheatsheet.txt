@@ -1,1 +1,27 @@
-super duper useless cheatsheet
+Several methods are use to compare multibyte characters. Important to use mb variant of a method when available
+mb_strlen
+mb_strtolower
+mb_str_split
+
+There are also several methods to check the type of variable (or it's implicit type in this case)
+is_bool
+is_file -> will return false if the file doesn't exist (useful to check in order to avoid errors)
+is_numeric -> Particularly useful to check if a string is a number (float or int)
+is_string
+is_int
+is_float
+is_array
+is_null
+
+Superglobal variables :
+$_POST -> Useful to get values from the post request
+$_GET -> Useful to get values from the get request
+$_SERVER -> Can be used to check if the server is using a secure connection or not (http vs https)
+$_SESSION -> Info about the session
+$_COOKIES -> Info about cookies
+
+Constants can be defined in two ways (number 2 is preferable)
+1: define("ACONST", 12);
+2: const ACONST = 12;
+
+String methods :

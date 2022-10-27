@@ -6,6 +6,7 @@
 #Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
+#Michael Leduc Clement 2210407  10-27-2022   Add print option functionality. Fix some formatting. Add cheatsheet
 
 // CONST
 const UTILITIES_LOCATION = "../src/utilities.php";

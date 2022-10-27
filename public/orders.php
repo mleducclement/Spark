@@ -5,6 +5,7 @@
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Add code to create order table, more comments to files and fix an bug when app would crash if .json file was empty
 #Michael Leduc Clement 2210407  10-27-2022   Add coloring action to orders. Fix some formatting errors in products form
+#Michael Leduc Clement 2210407  10-27-2022   Add print option functionality. Fix some formatting. Add cheatsheet
 
 const CHEATSHEET_FILE_LOCATION = "../data/cheatsheet.txt";
 

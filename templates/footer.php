@@ -5,6 +5,7 @@
 #Michael Leduc Clement 2210407  10-21-2022   Initial Project Setup
 #Michael Leduc Clement 2210407  10-21-2022   Add Footer/Nav/About sections
 #Michael Leduc Clement 2210407  10-24-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
+#Michael Leduc Clement 2210407  10-27-2022   Add print option functionality. Fix some formatting. Add cheatsheet
 
 $page_option = get_page_options();
 
