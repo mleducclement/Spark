@@ -21,7 +21,7 @@ require "../templates/head.php";
 $random_number = get_random_int();
 ?>
 
-<body class="bg-white">
+<body class="bg-slate-100">
 
 <?php require MAIN_NAV_LOCATION ?>
 <section id="about" class="bg-[url('<?= IMAGES_LOCATION ?>background-abstract.jpg')] bg-cover">

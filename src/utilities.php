@@ -8,6 +8,13 @@
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
 
+enum Page_options
+{
+    case Color;
+    case PrintReady;
+    case Default;
+}
+
 const LOGFILE_LOCATION = "../logs/log.txt";
 date_default_timezone_set("America/New_York");
 
@@ -80,12 +87,39 @@ function get_page_title(): string
     return select_page_title($URI_filename);
 }
 
+function get_page_options(): Page_options
+{
+    $query = parse_url($_SERVER["REQUEST_URI"], PHP_URL_QUERY);
+
+    if (!is_null($query) && str_contains(mb_strtolower($query), "action=color")) {
+        return Page_options::Color;
+    } else if (!is_null($query) && str_contains(mb_strtolower($query), "action=print")) {
+        return Page_options::PrintReady;
+    }
+
+    return Page_options::Default;
+}
+
+function get_text_color($amount): string
+{
+    switch ($amount) {
+        case $amount < 100.00:
+            return "text-red-500";
+        case $amount >= 100.00 && $amount < 1000.00:
+            return "text-amber-500";
+        case $amount >= 1000.00 :
+            return "text-green-500";
+    }
+
+    return "";
+}
+
 function select_page_title($URI_filename): string
 {
     // Variables to store file names for cases
     $home_file = "index.php";
     $products_file = "products.php";
-    $orders_file = "data.php";
+    $orders_file = "orders.php";
 
     // Variables to store corresponding page titles
     $home_title = "SPARK | HOME";

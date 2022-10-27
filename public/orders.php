@@ -3,10 +3,14 @@
 #
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
+#Michael Leduc Clement 2210407  10-25-2022   Add code to create order table, more comments to files and fix an bug when app would crash if .json file was empty
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
 require "../templates/head.php";
+
+$headings = [];
+$page_option = get_page_options();
 
 // Variables used to get the data from the .json file
 $data = "";
@@ -31,8 +35,6 @@ if (is_file($filepath)) {
     $headings = ['code', 'first name', 'last name', 'city', 'comments', 'price', 'quantity', 'subtotal', 'taxes', 'total'];
     $data = [];
 }
-
-
 ?>
 
     <body class="bg-white">
@@ -55,8 +57,15 @@ if (is_file($filepath)) {
                     <?php foreach ($row as $key => $value) {
                         if ($key == "quantity") {
                             echo "<td class='border border-black text-center p-1'>$value</td>";
-                        } else if ($key == "price" || $key == "subtotal" || $key == "taxes" || $key == "total") {
+                        } else if ($key == "price" || $key == "taxes" || $key == "total") {
                             echo "<td class='border border-black p-1'>$$value</td>";
+                        } else if ($key == "subtotal") {
+                            if ($page_option == Page_options::Color) {
+                                $color_class = get_text_color($value);
+                                echo "<td class='border border-black p-1 $color_class'>$$value</td>";
+                            } else {
+                                echo "<td class='border border-black p-1'>$$value</td>";
+                            }
                         } else {
                             echo "<td class='border border-black p-1'>$value</td>";
                         }
