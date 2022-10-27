@@ -7,7 +7,9 @@
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Implement error/exception catching and logging them to a file
+#Michael Leduc Clement 2210407  10-27-2022   Add coloring action to orders. Fix some formatting errors in products form
 
+// Enum to define the page options of orders.php
 enum Page_options
 {
     case Color;
@@ -15,9 +17,13 @@ enum Page_options
     case Default;
 }
 
+// Constant pointing to the log file
 const LOGFILE_LOCATION = "../logs/log.txt";
+
+// Set timezone to have correct timestamp in log file
 date_default_timezone_set("America/New_York");
 
+// Function to manage any error coming from the application and log it to a log file
 function manage_error($error_number, $error_message, $error_filename, $error_line_number): void
 {
     $error_message = date('y-m-d H:i:s') . " - An error occured in {$error_filename} at line {$error_line_number}. {$error_message} ({$error_number})\n";
@@ -29,16 +35,17 @@ function manage_error($error_number, $error_message, $error_filename, $error_lin
         echo "An error occured... We are aware of the problem, there is no further action to be taken by you";
     }
 
+    // If the logs directory doesn't exist, create it
     if (!file_exists(LOGFILE_LOCATION)) {
         mkdir("../logs");
     }
 
-    $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
-    fwrite($logfile, $error_message);
+    file_put_contents(LOGFILE_LOCATION, $error_message, FILE_APPEND);
 }
 
 set_error_handler("manage_error");
 
+// Function to manage any exception coming from the application and log it to a log file
 function manage_exception($error_object): void
 {
     $exception_message = date('y-m-d H:i:s') . " - An exception occured in {$error_object->getFile()} at line {$error_object->getLine()}. {$error_object->getMessage()} ({$error_object->getCode()})\n";
@@ -50,13 +57,12 @@ function manage_exception($error_object): void
         echo "An exception occured... We are aware of the problem, there is no further action to be taken by you";
     }
 
+    // If the logs directory doesn't exist, create it
     if (!file_exists(LOGFILE_LOCATION)) {
         mkdir("../logs");
     }
 
-    $logfile = fopen(LOGFILE_LOCATION, "a") or die("Unable to open file!");
-    fwrite($logfile, $exception_message);
-    fclose($logfile);
+    file_put_contents(LOGFILE_LOCATION, $exception_message, FILE_APPEND);
 }
 
 set_exception_handler("manage_exception");

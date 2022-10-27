@@ -12,8 +12,6 @@
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Add Input validation and sanitizing to the form, convert most require statements to use constants
 
-const IMAGES_LOCATION = "../assets/images/";
-
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
 require "../templates/head.php";
@@ -21,7 +19,7 @@ require "../templates/head.php";
 $random_number = get_random_int();
 ?>
 
-<body class="bg-slate-100">
+<body class="bg-white">
 
 <?php require MAIN_NAV_LOCATION ?>
 <section id="about" class="bg-[url('<?= IMAGES_LOCATION ?>background-abstract.jpg')] bg-cover">

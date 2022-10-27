@@ -4,12 +4,16 @@
 #DEV                            DATE         MESSAGE
 #Michael Leduc Clement 2210407  10-23-2022   Add orders and product figure on index page
 #Michael Leduc Clement 2210407  10-25-2022   Add code to create order table, more comments to files and fix an bug when app would crash if .json file was empty
+#Michael Leduc Clement 2210407  10-27-2022   Add coloring action to orders. Fix some formatting errors in products form
+
+const CHEATSHEET_FILE_LOCATION = "../data/cheatsheet.txt";
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
 require "../templates/head.php";
 
 $headings = [];
+
 $page_option = get_page_options();
 
 // Variables used to get the data from the .json file
@@ -37,13 +41,13 @@ if (is_file($filepath)) {
 }
 ?>
 
-    <body class="bg-white">
+<body class="<?= $page_option == Page_options::PrintReady ? "bg-white" : "bg-amber-50" ?>">
 
 <?php require MAIN_NAV_LOCATION ?>
 
-    <section id="products" class="max-w-6xl mx-auto p-6">
-        <h2 class="text-lg text-center font-bold p-3">Orders</h2>
-        <table class="w-full mx-auto border-separate">
+    <section id="orders" class="max-w-6xl mx-auto mb-6">
+        <h2 class="text-lg text-center font-bold my-3">Orders</h2>
+        <table class="w-full mx-auto border-separate bg-white">
             <thead>
             <tr>
                 <?php foreach ($headings as $key) { ?>
@@ -74,6 +78,16 @@ if (is_file($filepath)) {
             <?php } ?>
             </tbody>
         </table>
+    </section>
+
+    <section id="cheatsheet" class="max-w-6xl mx-auto mb-6">
+        <h2 class="text-2xl text-center mb-6">Cheatsheet Download Link</h2>
+        <a class="w-3/5 block text-center mx-auto text-xl hover:text-red-600"
+           href="<?= CHEATSHEET_FILE_LOCATION ?>"
+        >
+            --> Download the cheatsheet <--
+        </a>
+
     </section>
 
 <?php require FOOTER_LOCATION ?>

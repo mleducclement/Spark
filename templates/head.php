@@ -11,6 +11,7 @@
 const UTILITIES_LOCATION = "../src/utilities.php";
 const MAIN_NAV_LOCATION = "../templates/main_nav.php";
 const FOOTER_LOCATION = "../templates/footer.php";
+const IMAGES_LOCATION = "../assets/images/";
 const CSS_LOCATION = "../public/styles.css";
 
 const DEBUG_MODE = false;

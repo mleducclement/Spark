@@ -8,6 +8,7 @@
 #Michael Leduc Clement 2210407  10-25-2022   Clean some hardcoded variables and add function to set the page title
 #Michael Leduc Clement 2210407  10-25-2022   Add JSON encoding to a data file to keep track of orders.
 #Michael Leduc Clement 2210407  10-25-2022   Add code to create order table, more comments to files and fix an bug when app would crash if .json file was empty
+#Michael Leduc Clement 2210407  10-27-2022   Add coloring action to orders. Fix some formatting errors in products form
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
@@ -45,7 +46,7 @@ if (isset($_POST["purchase"])) {
     $last_name = sanitize_input($_POST["last-name"]);
     $city = sanitize_input($_POST["city"]);
     $comments = sanitize_input($_POST["comments"]);
-    $price = number_format(round(sanitize_input($_POST["price"]), 2), 2);
+    $price = number_format(round(sanitize_input($_POST["price"]), 2), 2, '.', '');
     $quantity = round(sanitize_input($_POST["quantity"]));
 
     // Checks if field is empty, doesn't contain the chars 'prd' or contains more than 25 chars (MB)
@@ -99,9 +100,9 @@ if (isset($_POST["purchase"])) {
         $directory = "../data/";
         $filepath = $directory . $filename;
 
-        $subtotal = number_format(round($price * $quantity, 2), 2);
-        $taxes = number_format(round($subtotal * 0.124, 2), 2);
-        $total = number_format(round($subtotal + $taxes, 2), 2);
+        $subtotal = number_format(round($price * $quantity, 2), 2, '.', '');
+        $taxes = number_format(round($subtotal * 0.124, 2), 2, '.', '');
+        $total = number_format(round($subtotal + $taxes, 2), 2, '.', '');
 
         // Checks if data directory exists, if not, creates it
         if (!is_dir($directory)) {
@@ -123,7 +124,6 @@ if (isset($_POST["purchase"])) {
         file_put_contents($filepath, json_encode($json_arr));
     }
 }
-
 ?>
 
     <body class="bg-white">

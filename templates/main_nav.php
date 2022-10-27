@@ -10,27 +10,34 @@
 const INDEX_LOCATION = "../public/index.php";
 const PRODUCTS_LOCATION = "../public/products.php";
 const ORDERS_LOCATION = "../public/orders.php";
+const LOGO_LOCATION = IMAGES_LOCATION . "logo.png";
+
+$page_option = get_page_options();
 
 ?>
 
-<section id="main-nav" class="bg-amber-400">
+<section id="main-nav" class="<?= $page_option == Page_options::PrintReady ? "bg-white" : "bg-amber-400"; ?>">
     <div class="max-w-6xl mx-auto">
         <nav class="flex p-4">
             <div class="">
-                <a href="#"><span class="font-bold text-xl tracking-tight">SPARK{}</span></a>
+                <a href="<?= INDEX_LOCATION ?>"><img
+                            class="w-12 h-12 <?= $page_option == Page_options::PrintReady ? "opacity-30" : ""; ?>"
+                            src="<?= LOGO_LOCATION ?>"
+                            alt="Spark logo">
+                </a>
             </div>
             <div class="flex items-center ml-auto">
                 <div class="text-md flex-grow">
                     <a id="home-link" href="<?= INDEX_LOCATION; ?>" data-title="Spark | Home"
-                       class="inline-block mr-4 hover:text-white hover:underline">
+                       class="inline-block mr-4 hover:<?= $page_option == Page_options::PrintReady ? "" : "text-white"; ?> hover:underline">
                         Home
                     </a>
                     <a id="products-link" href="<?= PRODUCTS_LOCATION; ?>" data-title="Spark | Products"
-                       class="inline-block mr-4 hover:text-white hover:underline">
+                       class="inline-block mr-4 hover:<?= $page_option == Page_options::PrintReady ? "" : "text-white"; ?> hover:underline">
                         Products
                     </a>
                     <a id="orders-link" href="<?= ORDERS_LOCATION; ?>" data-title="Spark | Orders"
-                       class="inline-block mr-4 hover:text-white hover:underline">
+                       class="inline-block mr-4 hover:<?= $page_option == Page_options::PrintReady ? "" : "text-white"; ?> hover:underline">
                         Orders
                     </a>
                 </div>
