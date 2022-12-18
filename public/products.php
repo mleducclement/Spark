@@ -13,6 +13,7 @@
 
 // Makes no sense to define a constant on every page for the head.php file and it needs to be defined
 // before requiring it in index
+
 require "../templates/head.php";
 
 // Variable to display the success message on the page

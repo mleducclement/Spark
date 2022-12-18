@@ -24,4 +24,95 @@ Constants can be defined in two ways (number 2 is preferable)
 1: define("ACONST", 12);
 2: const ACONST = 12;
 
-String methods :
+forcer HTTPS :
+	- créer clé privée et certif avec openssl
+	- copier certif dans c:/xampp/apache/conf/ssl.crt/
+	- copier clé dans c:/xampp/apache/conf/ssl.key/
+	- éditer les valeurs dans le fichier httpd-ssl.conf
+	- forcer HTTPS dans php
+
+changer mdp mysql défaut
+	- use mysql
+	- update user set password('abc') where user = 'root';
+	- flush privileges (evite restart mysql)
+
+// Je n'utilise pas HeidiSQL pour ma db et je ne crée rien avec un GUI donc je n'ai pas pris de notes sur les manips heidisql
+
+** commande "call" nécessaire pour appeler procédure dans sql query
+dB_collation -> utf8mb4_general_ci
+
+UUID est unique à la machine qui le crée
+
+// Je n'ai pas besoin de listé les types de données, les join ou même les opération GROUP BY ou ORDER BY.
+// J'utilise suffisement de DB régulièrement pour que ce soit un automatisme.
+
+BLOB pour les binary (images ou autre type de fichier)
+varchar vs nvarchar (varchar = variable, nvarchar = non-variable)
+DATE - juste la date, pas l'heure vs DATETIME, les deux
+
+BAD => $req = "SELECT * FROM users where name = '" . name . "'"
+procedure = protection contre injection SQL
+
+SQL PUR:
+	CREATE DATABASE
+	CREATE TABLE
+	INSERT
+	SELECT
+	UPDATE
+	DELETE
+
+** Never use ROOT, Create new user and restrict privileges **
+
+DATABASE APIs :
+
+	///// MySQL (Legacy) ///// DON'T USE
+
+	///// MySQLi (Procédural) /////////////////////////////
+
+		functions
+
+		code
+		$driver = mysqli_connect('localhost', 'www-2210407', '1234');
+
+	///// PDO : PHP Data Object /////////////////////////////
+		- peut se connecter à 12 DBMS
+		- utilise des paramètres nommés
+		- set error_handler/ set exception_handler peuvent détecter erreurs avec PDO
+
+		code
+		$connection_string = new PDO("mysql:host=localhost;dbname=basededonnees2210407", "www-2210407", '1234');
+
+		make sure query error throw an exception ->
+		$connection_string->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		protect against some SQL injections
+		$connection_string->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+		** need to destroy PDOStatement when no longer in use to prevent errors
+
+	///// MySQLi (OOP) /////////////////////////////
+
+		object->method
+
+		code :
+		$connection_string = new mysqli('localhost', 'www-2210407', '1234');
+
+** Better to close DB connections once no longer using them **
+
+WITH PDO ->
+
+	To use parameterized request :
+		- replace direct call to variable with :"parameter_name"
+		- prepare the request with prepare();
+		- $request->bindParam() #might have to define data type if other than string
+		- $PDOStatement->execute()
+		- get data from $PDOStatement
+
+	When using several request :
+		- $PDOStatement->closeCursor(); #before prepare()
+
+ALTERNATIVE TO BIND PARAM (PREFERED)
+    $PDOSTATEMENT->execute(['param_name' => $param_value])
+
+// VOIR WEEK 12 for password hashing and binary files ops
+

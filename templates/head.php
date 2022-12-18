@@ -15,17 +15,19 @@ const FOOTER_LOCATION = "../templates/footer.php";
 const IMAGES_LOCATION = "../assets/images/";
 const CSS_LOCATION = "../public/styles.css";
 
-const DEBUG_MODE = false;
-
 require UTILITIES_LOCATION;
 
 // Force browser to use secure connection (HTTPS://)
-if (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
-    header("Location: https://" . str_replace("8088", "", $_SERVER["HTTP_HOST"]) . $_SERVER["REQUEST_URI"]);
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $location);
+    exit;
 }
 
-// Sets headers of the http request to prevent caching of the page
+// Sets headers of the http request to prevent caching of the page and make sure we use UTF-8
 header("Content-Type: text/html; Charset: UTF-8");
+header("Expires: on, 01 Jan 1970 00:00:00 GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -43,7 +45,7 @@ header("Pragma: no-cache");
     <link rel="stylesheet" href="<?php // echo CSS_LOCATION; ?>">
 
     <!-- Tailwindcss CDN : Necessary in order to use tailwindcss without local compiling -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!------------------------------------------------------------------------------------->
     <title><?= get_page_title(); ?></title>
 </head>

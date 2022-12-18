@@ -19,6 +19,7 @@ enum Page_options
 
 // Constant pointing to the log file
 const LOGFILE_LOCATION = "../logs/log.txt";
+const DEBUG_MODE = true;
 
 // Set timezone to have correct timestamp in log file
 date_default_timezone_set("America/New_York");
